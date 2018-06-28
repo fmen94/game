@@ -117,7 +117,7 @@ cartas=[
 //instances
     darDosCartas();
     var  fondo= new Fondo();
-    var carta1= new Cartas(584,267,cartasUser[0].imagen);
+    var carta1= new Cartas(584,267);
     var carta2= new Cartas(584,267);
     var carta3= new Cartas(584,267);
     var carta4= new Cartas(584,267);
@@ -132,8 +132,8 @@ cartas=[
 function update(){
     frames++;
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    carta1.draw();
     fondo.draw();
+    carta1.draw();
     carta1.mover(1.2,2,true);
     if(uno){
         carta2.draw();
@@ -258,6 +258,7 @@ function compuRoba(){
 
 //******************************listeners********************************
 $('#inicio').click(function(){
+    carta1.image.src=cartasUser[0].imagen;
     start();
 
 
