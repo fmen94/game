@@ -57,6 +57,10 @@ cartas=[
     var masCom=false;
     var masCom1=false;
     var ganador=0;
+    var gameOver=false;
+    var uno=false;
+    var dos=false;
+    var computa=false;
 
     
 
@@ -113,9 +117,8 @@ cartas=[
 //instances
     darDosCartas();
     var  fondo= new Fondo();
-    var carta= new Cartas(50,50,cartas[0].imagen);
     var carta1= new Cartas(584,267,cartasUser[0].imagen);
-    var carta2= new Cartas(584,267,cartasUser[1].imagen);
+    var carta2= new Cartas(584,267);
     var carta3= new Cartas(584,267);
     var carta4= new Cartas(584,267);
     var cartaAdi=new Cartas(584,267);
@@ -130,15 +133,17 @@ function update(){
     frames++;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     fondo.draw();
-    carta.draw();
     carta1.draw();
     carta1.mover(1.2,2,true);
-    carta2.draw();
-    carta2.mover(0,2,true);
+    if(uno){
+        carta2.draw();
+        carta2.mover(0,2,true);
+    }   
     carta3.draw();
     carta3.mover(1.05,2,false);
-    carta4.draw();
-    carta4.mover(0,2,false);
+    if(computa){
+        carta4.draw();
+        carta4.mover(0,2,false);}
     puntuacion()
     if(mas){cartaAdi.draw();
     cartaAdi.mover(-1.2,2,true);}
@@ -148,6 +153,7 @@ function update(){
     cartaAdi2.mover(2.4,2,true);}
     if(tePasaste(cartasUser)==false||ganador==2){
         turno=false;
+        gameOver=true;
         ctx.font = '100px Paytone One';
         ctx.fillStyle = 'red';
         ctx.fillText('GAME OVER', 350, 350);
@@ -163,6 +169,12 @@ function update(){
             ctx.fillText('WIN!', 500, 350);
         }
     }
+    if(turno==false){
+        ctx.font = '100px Paytone One';
+        ctx.fillStyle = 'white';
+        if(contadora(cartasComp)>7.5){ctx.fillStyle='red'}
+        ctx.fillText(ventajaCompu(), 300, 150);
+    }
 
 }
 
@@ -173,10 +185,6 @@ function start(){
 function creaCartas(){
     mas=true;
 }
-
-
-
-
 //entrega un arreglo random dentro del arreglo
 function cartaAzar(cartas){
     var numCar=Math.floor(Math.random()*cartas.length);
@@ -191,19 +199,16 @@ function darDosCartas(){
     //entrega 2 cartas al usuario
     var carta1=cartaAzar(cartas);
     cartasUser[0]=carta1;
-    var carta2=cartaAzar(cartas);
-    cartasUser[1]=carta2;
     //entrega 2 cartas a la computadora
     var carta3=cartaAzar(cartas);
     cartasComp[0]=carta3;
-    var carta4=cartaAzar(cartas);
-    cartasComp[1]=carta4;
 }
 //funcion que muestre los puntos del usuario
 function puntuacion(){
     
     ctx.font = '100px Paytone One';
         ctx.fillStyle = 'white';
+        if(contadora(cartasUser)>7.5){ctx.fillStyle='red'}
         ctx.fillText(contadora(cartasUser), 940, 580);  
 }
 //recibe a quien se le añaden cartas
@@ -242,7 +247,7 @@ function saberQuienGana(){
         console.log("ganaste");
         return true};
         console.log("empate");
-    return "empate";
+    if(ventajaCompu()==contadora(cartasUser))return false;
 }
 //la computadora roba carta si la suma es menor a 5
 function compuRoba(){
@@ -263,11 +268,17 @@ $('#otraCarta').click(function(){
         addCarta(cartasUser);
         if(mas1){mas2=true};
         if (mas){mas1=true};
-        if(mas==false){creaCartas();}
+        if (dos){mas=true}
+        if(uno==false){dos=true 
+        uno=true}
     }
     
 });
 $('#canvas').click(function(){
+        if(uno){
+            carta2.image.src=cartasUser[1].imagen;
+        
+        }
     
         if(mas){
             cartaAdi.image.src=cartasUser[2].imagen;
@@ -283,24 +294,29 @@ $('#canvas').click(function(){
 
 });
 $('#terminar').click(function(){
-    turno=false;
-    carta3.image.src=cartasComp[0].imagen;
-    carta4.image.src=cartasComp[1].imagen;
-    compuRoba();
-    if(cartasComp.length==3){
-        masCom=true;
-        cartaCom3.image.src=cartasComp[2].imagen;
-    }
-    compuRoba();
-    if(cartasComp.length==4){
-        masCom1=true;
-        cartaCom4.image.src=cartasComp[3].imagen;
-    }
-    if(saberQuienGana()){
-        ganador=1;
-    }
-    if(saberQuienGana()==false){
-        ganador=2
+    if(gameOver==false){
+        turno=false;
+        carta3.image.src=cartasComp[0].imagen;
+        compuRoba();
+        if(cartasComp.length==2){
+            computa=true;
+         carta4.image.src=cartasComp[1].imagen;}
+        compuRoba();
+        if(cartasComp.length==3){
+            masCom=true;
+            cartaCom3.image.src=cartasComp[2].imagen;
+        }
+        compuRoba();
+        if(cartasComp.length==4){
+            masCom1=true;
+            cartaCom4.image.src=cartasComp[3].imagen;
+        }
+        if(saberQuienGana()){
+            ganador=1;
+        }
+        if(saberQuienGana()==false){
+            ganador=2
+        }
     }
 })
 $('#restart').click(function(){

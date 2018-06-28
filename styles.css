@@ -4,3 +4,47 @@ body{
 canvas{
     background-image: url("images/piso de madera.jpg")
 }
+h1 {
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;;
+    font-size: 92px;
+    color: #d93434;
+    text-shadow: 0 12px 13px black, 0px -2px 1px #fff;
+    font-weight: bold;
+    letter-spacing: -4px;
+    text-align: left;
+    border-radius: 20px;
+    margin-left: 300px
+  }
+  
+    
+
+div {
+    display: flex;
+}
+.button {
+        background: #d93434;
+        background-image: -webkit-linear-gradient(top, #d93434, #2b4eb8);
+        background-image: -moz-linear-gradient(top, #d93434, #2b4eb8);
+        background-image: -ms-linear-gradient(top, #d93434, #2b4eb8);
+        background-image: -o-linear-gradient(top, #d93434, #2b4eb8);
+        background-image: linear-gradient(to bottom, #d93434, #2b4eb8);
+        -webkit-border-radius: 60;
+        -moz-border-radius: 60;
+        border-radius: 60px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 40px;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+        margin-left: 20px;
+        
+      }
+.button:hover {
+        background: #fa3c3c;
+        background-image: -webkit-linear-gradient(top, #fa3c3c, #d9d934);
+        background-image: -moz-linear-gradient(top, #fa3c3c, #d9d934);
+        background-image: -ms-linear-gradient(top, #fa3c3c, #d9d934);
+        background-image: -o-linear-gradient(top, #fa3c3c, #d9d934);
+        background-image: linear-gradient(to bottom, #fa3c3c, #d9d934);
+        text-decoration: none;
+      }
