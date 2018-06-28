@@ -132,8 +132,8 @@ cartas=[
 function update(){
     frames++;
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    fondo.draw();
     carta1.draw();
+    fondo.draw();
     carta1.mover(1.2,2,true);
     if(uno){
         carta2.draw();
