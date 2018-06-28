@@ -2,6 +2,7 @@ body{
     background-image: url("https://blog.ipleaders.in/wp-content/uploads/2017/05/BV-Acharya-26.jpg") 
 }
 canvas{
+    margin: 0;
     background-image: url("images/piso de madera.jpg")
 }
 h1 {
@@ -13,7 +14,8 @@ h1 {
     letter-spacing: -4px;
     text-align: left;
     border-radius: 20px;
-    margin-left: 300px
+    margin-left: 300px;
+    display: none;
   }
   
     
@@ -47,4 +49,9 @@ div {
         background-image: -o-linear-gradient(top, #fa3c3c, #d9d934);
         background-image: linear-gradient(to bottom, #fa3c3c, #d9d934);
         text-decoration: none;
+      }
+@media (min-width: 850px){
+        h1{
+            display: inline;
+        }
       }
