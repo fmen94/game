@@ -70,6 +70,7 @@ cartas=[
     var uno=false;
     var dos=false;
     var computa=false;
+    var finSonido=0;
 
     
 
@@ -168,6 +169,7 @@ function update(){
         soundLose.play();
         ctx.font = '100px Paytone One';
         ctx.fillStyle = 'red';
+        finSonido++;
         ctx.fillText('GAME OVER', 350, 350);
         
     }
@@ -180,6 +182,7 @@ function update(){
             sound.pause();
             sound.currentTime = 0;
             soundWin.play();
+            finSonido++;
             ctx.font = '100px Paytone One';
             ctx.fillStyle = 'blue';
             ctx.fillText('WIN!', 500, 350);
@@ -191,7 +194,12 @@ function update(){
         if(contadora(cartasComp)>7.5){ctx.fillStyle='red'}
         ctx.fillText(ventajaCompu(), 300, 150);
     }
-
+    if(finSonido>300){
+        soundLose.currentTime = 0;
+        soundLose.pause();
+        soundWin.currentTime = 0;
+        soundWin.pause();
+    }
 }
 
 function start(){
