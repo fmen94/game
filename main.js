@@ -46,6 +46,15 @@ cartas=[
     ];
     var interval;
     var frames = 0;
+    var sound = new Audio();
+    sound.src = "musica/inicio.wav";
+    sound.loop = true;
+    var soundLose = new Audio();
+    soundLose.src="musica/loose fercho.mp3"
+    soundLose.loop =false;
+    var soundWin= new Audio();
+    soundWin.src="musica/win fercho.mp3"
+    soundWin.loop=false;
     var cartasUser=[];
     var cartasComp=[];
     var fondoImg="images/Mesa_poker.png";
@@ -154,9 +163,13 @@ function update(){
     if(tePasaste(cartasUser)==false||ganador==2){
         turno=false;
         gameOver=true;
+        sound.pause();
+        sound.currentTime = 0;
+        soundLose.play();
         ctx.font = '100px Paytone One';
         ctx.fillStyle = 'red';
         ctx.fillText('GAME OVER', 350, 350);
+        
     }
     if(masCom){cartaCom3.draw();
         cartaCom3.mover(-1.6,2,false);}
@@ -164,6 +177,9 @@ function update(){
         cartaCom4.mover(-2.1,2,false)}
     if(turno==false){
         if(tePasaste(cartasComp)==false&&tePasaste(cartasUser)||ganador==1){
+            sound.pause();
+            sound.currentTime = 0;
+            soundWin.play();
             ctx.font = '100px Paytone One';
             ctx.fillStyle = 'blue';
             ctx.fillText('WIN!', 500, 350);
@@ -180,6 +196,7 @@ function update(){
 
 function start(){
     interval = setInterval(update, 1000/60);
+    sound.play()
 }
 //*****************aux functions*************************
 function creaCartas(){
@@ -295,6 +312,7 @@ $('#canvas').click(function(){
 
 });
 $('#terminar').click(function(){
+    
     if(gameOver==false){
         turno=false;
         carta3.image.src=cartasComp[0].imagen;
